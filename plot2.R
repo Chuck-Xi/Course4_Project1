@@ -1,10 +1,9 @@
-# Plot 1 of Course Project 1
+# Plot 2 of Course Project 1
 
 # importing libraries
 library(tidyverse)
 library(data.table)
 
-# Getting data from the text file
 filename <- "household_power_consumption.txt"
 df <- fread(filename, sep = ";", header = TRUE, na.strings = "?")
 
@@ -19,7 +18,7 @@ df <- df %>%
 	select(-Date, -Time) %>% 
 	filter(between(datetime,
 				   ymd_hms("2007-02-01 00:00:00"),
-				   ymd_hms("2007-02-02 23:59:59"))) %>% 
+				   ymd_hms("2007-02-03 23:59:59"))) %>% 
 	mutate(across(
 		c(Global_active_power, Global_reactive_power,
 		  Voltage, Global_intensity, Sub_metering_1,
@@ -33,12 +32,22 @@ df %>%
 # check for summary of df
 summary(df)
 
-png("plot1.png", width = 480, height = 480)
+png("plot2.png", width = 480, height = 480)
 
-with(df, hist(Global_active_power, 
-			  col = adjustcolor("red", alpha.f = 0.8),
-			  xlab = "Global Active Power (kilowatts)",
-			  main = "Global Active Power"))
+with(df, plot(datetime, Global_active_power,
+			  type = "l",
+			  xlab = "",
+			  ylab = "Global Active Power (kilowatts)",
+			  xaxt = "n"))
 
+ticks <- seq(from = floor_date(min(df$datetime), "day"),
+			 to   = ceiling_date(max(df$datetime), "day"),
+			 by   = "day")
+
+axis(1, at = ticks, labels = format(ticks, "%a"))
 dev.off()
+
+
+
+
 
