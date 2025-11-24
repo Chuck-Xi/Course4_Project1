@@ -32,3 +32,41 @@ df %>%
 # check for summary of df
 summary(df)
 
+png("plot3.png", width = 480, height = 480)
+
+with(df, plot(datetime, Sub_metering_1,
+			  type = "l",
+			  xlab = "",
+			  ylab = "Energy sub metering",
+			  xaxt = "n"))
+
+with(df, lines(datetime, Sub_metering_2, col = "red"))
+with(df, lines(datetime, Sub_metering_3, col = "blue"))
+
+ticks <- seq(from = floor_date(min(df$datetime), "day"),
+			 to   = ceiling_date(max(df$datetime), "day"),
+			 by   = "day")
+
+axis(1, at = ticks, labels = format(ticks, "%a"))
+
+legend("topright",
+	   legend = c("Sub_metering_1","Sub_metering_2","Sub_metering_3"),
+	   col = c("black","red","blue"),
+	   lty = 1)
+
+dev.off()
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

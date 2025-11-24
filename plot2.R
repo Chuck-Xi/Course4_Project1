@@ -45,6 +45,7 @@ ticks <- seq(from = floor_date(min(df$datetime), "day"),
 			 by   = "day")
 
 axis(1, at = ticks, labels = format(ticks, "%a"))
+
 dev.off()
 
 
