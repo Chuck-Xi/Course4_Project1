@@ -1,4 +1,4 @@
-# Plot 2 of Course Project 1
+# Plot 3 of Course Project 1
 
 # importing libraries
 library(tidyverse)
@@ -31,23 +31,4 @@ df %>%
 
 # check for summary of df
 summary(df)
-
-png("plot2.png", width = 480, height = 480)
-
-with(df, plot(datetime, Global_active_power,
-			  type = "l",
-			  xlab = "",
-			  ylab = "Global Active Power (kilowatts)",
-			  xaxt = "n"))
-
-ticks <- seq(from = floor_date(min(df$datetime), "day"),
-			 to   = ceiling_date(max(df$datetime), "day"),
-			 by   = "day")
-
-axis(1, at = ticks, labels = format(ticks, "%a"))
-dev.off()
-
-
-
-
 
